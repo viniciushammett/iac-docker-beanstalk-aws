@@ -20,7 +20,7 @@ resource "aws_iam_role" "beanstalk_ec2" {
 
   resource "aws_iam_role_policy" "beanstalk_ec2_policy" {
   name = "beanstalk-ec2-policy"
-  role = aws_iam_role.test_role.id
+  role = aws_iam_role.beanstalk_ec2.id
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -34,10 +34,26 @@ resource "aws_iam_role" "beanstalk_ec2" {
           "ds:DescribeDirectories",
           "ec2:DescribeInstanceStatus",
           "logs:*",
+          "ssm:*",
+          "ec2messages:*",
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:GetRepositoryPolicy",
+          "ecr:DescribeRepository",
+          "ecr:ListImages",
+          "ecr:DescribeImages",
+          "ecr:BatchGetImage",
+          "s3:*"
         ]
         Effect   = "Allow"
         Resource = "*"
       },
     ]
   })
+}
+
+resource "aws_iam_instance_profile" "beanstalk_ec2_profile" {
+  name = "beanstalk-ec2-profile"
+  role = aws_iam_role.beanstalk_ec2.name
 }
