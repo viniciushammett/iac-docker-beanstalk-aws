@@ -6,3 +6,12 @@ variable "nome" {
 variable "descricao" {
     type = string
 }
+
+variable "max" {
+    type = number 
+}
+
+variable "maquina" {
+    type = string
+  
+}
