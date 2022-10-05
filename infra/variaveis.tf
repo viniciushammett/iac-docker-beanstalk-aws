@@ -13,5 +13,8 @@ variable "max" {
 
 variable "maquina" {
     type = string
-  
+}
+
+variable "ambiente" {
+    type = string
 }
